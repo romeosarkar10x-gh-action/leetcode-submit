@@ -2,6 +2,8 @@
     "name": "leetcode-submit",
     "version": "0.0.0",
     "description": "Submit LeetCode solutions from CI using a session token and metadata",
+    "author": "Romeo Sarkar",
+    "license": "ISC",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -11,8 +13,6 @@
         "github-actions",
         "gha"
     ],
-    "author": "Romeo Sarkar",
-    "license": "ISC",
     "devEngines": {
         "packageManager": {
             "name": "pnpm",
