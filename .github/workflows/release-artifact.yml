@@ -1,0 +1,44 @@
+name: Release artifact
+
+on:
+    workflow_call:
+
+jobs:
+    release_artifact:
+        runs-on: [ubuntu-latest]
+        name: Check formatting
+        permissions:
+            contents: write
+        steps:
+            - uses: actions/checkout@v7
+              name: Checkout repository
+
+            - uses: oven-sh/setup-bun@v2
+              name: Setup bun
+
+            - run: bun install
+              name: Install dependencies
+
+            - run: bun run build
+              name: Build
+
+            - run: mv index.js index.new.js
+              name: Rename index.js to index.new.js
+
+            - name: Push release
+              run: |
+                  git fetch --all
+
+                  if git ls-remote --exit-code --heads origin ; then
+                      git checkout --orphan release
+                  else
+                      git checkout -b release origin/release
+                  fi
+
+                  git restore --source origin/main action.yml
+                  mv index.new.js index.js
+
+                  git stage .
+                  git -c user.name "github-actions[bot]" -c user.email "github-actions[bot]@users.noreply.github.com" commit -m "Automated release for commit $(git rev-parse origin/main)"
+
+                  git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} release
