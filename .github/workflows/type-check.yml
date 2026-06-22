@@ -1,0 +1,21 @@
+name: Type check
+
+on:
+    workflow_call:
+
+jobs:
+    type_check:
+        runs-on: [ubuntu-latest]
+        name: Type check
+        steps:
+            - uses: actions/checkout@v6
+              name: Checkout repository
+
+            - uses: oven-sh/setup-bun@v2
+              name: Setup bun
+
+            - run: bun install
+              name: Install dependencies
+
+            - run: bun run type-check
+              name: Type check
