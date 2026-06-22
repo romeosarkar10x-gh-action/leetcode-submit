@@ -9,7 +9,7 @@ runs:
 inputs:
     manifest-file:
         description: Path to the manifest file containing problem IDs and their corresponding solution file paths
-        default: .lcsubmit.json
+        default: .lc.json
     leetcode-session-cookie:
         description: LEETCODE_SESSION cookie
         required: true
