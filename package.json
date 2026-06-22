@@ -5,7 +5,12 @@
     "author": "Romeo Sarkar",
     "license": "ISC",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "build": "node esbuild.ts",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "format:check": "prettier \"**/*.{ts,json,yml,yaml,md}\" --check --debug-check --ignore-path .prettierignore",
+        "format": "prettier \"**/*.{ts,json,yml,yaml,md}\" --write --ignore-path .prettierignore",
+        "lint": "eslint --flag unstable_native_nodejs_ts_config .",
+        "type-check": "tsc -p tsconfig.json"
     },
     "keywords": [
         "github",
