@@ -27,6 +27,12 @@
     },
     "type": "module",
     "devDependencies": {
-        "prettier": "^3.8.4"
+        "esbuild": "^0.28.1",
+        "prettier": "^3.8.4",
+        "typescript": "^6.0.3"
+    },
+    "dependencies": {
+        "@actions/core": "^3.0.1",
+        "@actions/github": "^9.1.1"
     }
 }
