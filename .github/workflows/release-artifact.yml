@@ -38,6 +38,11 @@ jobs:
 
                       git checkout --orphan release
                       git rm -rf .
+
+                      echo '*' > .gitignore
+                      echo '!/.gitignore' >> .gitignore
+                      echo '!/index.js' >> .gitignore
+                      echo '!/action.yml' >> .gitignore
                   else
                       git checkout -b release origin/release
                   fi
