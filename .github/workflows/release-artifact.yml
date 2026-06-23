@@ -33,7 +33,7 @@ jobs:
 
             - name: Create / checkout relase branch
               run: |
-                  if git ls-remote --exit-code --heads origin ; then
+                  if git ls-remote --exit-code --heads origin release; then
                       echo Creating orphan branch...
 
                       git checkout --orphan release
