@@ -1,1 +1,1 @@
-console.log("My first github action!!");
+console.log("My first github action!");
