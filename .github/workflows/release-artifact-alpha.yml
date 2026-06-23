@@ -78,5 +78,5 @@ jobs:
 
             - name: Push alpha release
               run: |
-                  git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} ${{ RELEASE_BRANCH }}
-                  git push origin ${{ RELEASE_BRANCH }} --follow-tags
+                  git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} ${{ env.RELEASE_BRANCH }}
+                  git push origin ${{ env.RELEASE_BRANCH }} --follow-tags
