@@ -25,6 +25,6 @@ jobs:
 
     release_artifact:
         needs: release_artifact_alpha
-        uses: ./.github/workflows/release_artifact.yml
+        uses: ./.github/workflows/release-artifact.yml
         permissions:
             contents: write
