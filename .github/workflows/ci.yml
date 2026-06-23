@@ -17,8 +17,8 @@ jobs:
         uses: ./.github/workflows/lint.yml
         needs: type_check
 
-    release_artifact:
-        uses: ./.github/workflows/release-artifact.yml
+    release_artifact_alpha:
+        uses: ./.github/workflows/release-artifact-alpha.yml
         needs: lint
         permissions:
             contents: write
