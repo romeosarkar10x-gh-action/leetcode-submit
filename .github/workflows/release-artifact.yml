@@ -53,6 +53,9 @@ jobs:
             - name: Rename new.index.js back to index.js
               run: mv index.new.js index.js
 
+            - name: Git status
+              run: git status
+
             - name: Commit changes
               run: |
                   git stage .
