@@ -37,7 +37,7 @@ jobs:
                       echo Creating orphan branch...
 
                       git checkout --orphan release
-                      git rm -r --cached .
+                      git rm -rf .
                   else
                       git checkout -b release origin/release
                   fi
