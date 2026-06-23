@@ -39,6 +39,6 @@ jobs:
                   mv index.new.js index.js
 
                   git stage .
-                  git -c user.name "github-actions[bot]" -c user.email "github-actions[bot]@users.noreply.github.com" commit -m "Automated release for commit $(git rev-parse origin/main)"
+                  git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" commit -m "Automated release for commit $(git rev-parse origin/main)"
 
                   git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} release
