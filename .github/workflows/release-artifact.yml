@@ -33,6 +33,11 @@ jobs:
                       git checkout --orphan release
                   else
                       git checkout -b release origin/release
+
+                      echo '*' > .gitignore
+                      echo '!/.gitignore' >> .gitignore
+                      echo '!/index.js' >> .gitignore
+                      echo '!/action.yml' >> .gitignore
                   fi
 
                   git restore --source origin/main action.yml
