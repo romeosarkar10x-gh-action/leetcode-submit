@@ -57,7 +57,7 @@ jobs:
               run: |
                   if ! git diff --quiet HEAD || [ -n "$(git ls-files --others --exclude-standard)" ] ; then
                       git stage .
-                      git -c user.name='github-actions[bot]' -c user.email='github-actions[bot]@users.noreply.github.com' commit -m 'Automated release for commit $(git rev-parse origin/main)'
+                      git -c user.name='github-actions[bot]' -c user.email='github-actions[bot]@users.noreply.github.com' commit -m "Automated release for commit $(git rev-parse origin/main)"
                   else
                       echo 'Nothing to commit!'
                   fi
