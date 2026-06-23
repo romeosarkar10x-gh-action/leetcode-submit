@@ -56,6 +56,7 @@ jobs:
             - name: Commit changes
               run: |
                   git stage .
+                  git status
                   git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" commit -m "Automated release for commit $(git rev-parse origin/main)"
 
             - name: Push release
