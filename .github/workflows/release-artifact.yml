@@ -37,11 +37,7 @@ jobs:
                       echo Creating orphan branch...
 
                       git checkout --orphan release
-
-                      echo '*' > .gitignore
-                      echo '!/.gitignore' >> .gitignore
-                      echo '!/index.js' >> .gitignore
-                      echo '!/action.yml' >> .gitignore
+                      git rm -r --cached .
                   else
                       git checkout -b release origin/release
                   fi
