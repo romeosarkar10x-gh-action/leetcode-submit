@@ -7,6 +7,7 @@ on:
 
 jobs:
     release_artifact:
+        environment: release
         runs-on: [ubuntu-latest]
         name: Release artifact
         permissions:
