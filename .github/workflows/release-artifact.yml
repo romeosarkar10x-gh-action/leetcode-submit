@@ -59,7 +59,7 @@ jobs:
             - name: Commit changes
               run: |
                   if ! git diff --quiet HEAD || [ -n "$(git ls-files --others --exclude-standard)" ] ; then
-                      TAG=$(jq -r '.version' package.json)
+                      TAG="v$(jq -r '.version' package.json)"
                       COMMIT=$(git rev-parse origin/main)
 
                       if git rev-parse --verify --quiet "refs/tags/${TAG}" >/dev/null 2>&1 ; then
