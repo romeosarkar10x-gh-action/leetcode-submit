@@ -22,3 +22,9 @@ jobs:
         needs: lint
         permissions:
             contents: write
+
+    release_artifact:
+        needs: release_artifact_alpha
+        uses: ./.github/workflows/release_artifact.yml
+        permissions:
+            contents: write
