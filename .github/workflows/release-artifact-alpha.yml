@@ -1,0 +1,82 @@
+name: Release artifact (alpha)
+
+env:
+    RELEASE_BRANCH: release-alpha
+on:
+    workflow_call:
+
+jobs:
+    release_artifact_alpha:
+        runs-on: [ubuntu-latest]
+        name: Release artifact (alpha)
+        permissions:
+            contents: write
+        steps:
+            - uses: actions/checkout@v7
+              name: Checkout repository
+
+            - uses: oven-sh/setup-bun@v2
+              name: Setup bun
+
+            - run: bun install
+              name: Install dependencies
+
+            - run: bun run build
+              name: Build
+
+            - name: Rename index.js to index.new.js
+              run: mv index.js index.new.js
+
+            - name: Fetch all branches and tags
+              run: git fetch --all --tags
+
+            - name: List all branches
+              run: git --no-pager branch -a
+
+            - name: Create / checkout relase branch
+              run: |
+                  if git ls-remote --exit-code --heads origin ${{ env.RELEASE_BRANCH }} ; then
+                      git checkout -b ${{ env.RELEASE_BRANCH }} "origin/${{ env.RELEASE_BRANCH }}"
+                  else
+                      echo Creating orphan branch...
+
+                      git checkout --orphan ${{ env.RELEASE_BRANCH }}
+                      git rm -rf .
+
+                      echo '*' > .gitignore
+                      echo '!/.gitignore' >> .gitignore
+                      echo '!/index.js' >> .gitignore
+                      echo '!/action.yml' >> .gitignore
+                  fi
+
+            - name: Checkout action.yml from origin/main
+              run: git restore --source origin/main action.yml
+
+            - name: Checkout package.json from origin/main
+              run: git restore --source origin/main package.json
+
+            - name: Rename new.index.js back to index.js
+              run: mv index.new.js index.js
+
+            - name: Commit changes
+              run: |
+                  if ! git diff --quiet HEAD || [ -n "$(git ls-files --others --exclude-standard)" ] ; then
+                      TAG="v$(jq -r '.version' package.json)-alpha"
+                      COMMIT=$(git rev-parse origin/main)
+
+                      if git rev-parse --verify --quiet "refs/tags/${TAG}" >/dev/null 2>&1 ; then
+                          TAG="${TAG}-${COMMIT}"
+                      fi
+
+                      git stage .
+                      git -c user.name='github-actions[bot]' -c user.email='github-actions[bot]@users.noreply.github.com' commit -m "Commit: ${COMMIT}"
+
+                      git -c user.name='github-actions[bot]' -c user.email='github-actions[bot]@users.noreply.github.com' tag -m "Commit: ${COMMIT}" "${TAG}"
+                  else
+                      echo 'Nothing to commit!'
+                  fi
+
+            - name: Push alpha release
+              run: |
+                  git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} ${{ RELEASE_BRANCH }}
+                  git push origin ${{ RELEASE_BRANCH }} --follow-tags
